@@ -45,7 +45,6 @@ public class BankController {
 	
 	@PutMapping(ID)
 	public ResponseEntity<BankDto> update(@PathVariable UUID id, @RequestBody BankDto bankDto) {
-		if (bankDto.getId() == null) throw new BadRequestException(bankDto.toString());
 		Bank bank = new ModelMapper().map(bankDto, Bank.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ModelMapper().map(bankService.update(id, bank), BankDto.class));

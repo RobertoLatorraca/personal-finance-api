@@ -1,18 +1,20 @@
 package ar.latorraca.finance.domain.ports.in;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-import ar.latorraca.finance.adapters.primary.rest.dtos.CurrencyDto;
+import ar.latorraca.finance.domain.models.Currency;
 
 public interface CurrencyService {
 
-	CurrencyDto save(CurrencyDto currencyDto);
+	Currency save(Currency currency);
 	
-	CurrencyDto update(CurrencyDto currencyDto);
+	Currency update(UUID id, Currency currency);
 	
-	Iterable<CurrencyDto> findAll();
+	List<Currency> findAll();
 	
-	CurrencyDto findById(UUID id);
+	Optional<Currency> findById(UUID id);
 	
 	void deleteById(UUID id);
 

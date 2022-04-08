@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ar.latorraca.finance.adapters.secondary.jpa.entities.CurrencyEntity;
@@ -27,9 +28,9 @@ public class CurrencyPersistenceImpl implements CurrencyPersistence {
 	}
 
 	@Override
-	public Iterable<Currency> findAll() {
+	public List<Currency> findAll(Sort sort) {
 		List<Currency> result = new ArrayList<>();
-		currencyRepository.findAll().forEach(currencyEntity ->
+		currencyRepository.findAll(sort).forEach(currencyEntity ->
 				result.add(new ModelMapper().map(currencyEntity, Currency.class)));
 		return result;
 	}

@@ -1,7 +1,10 @@
 package ar.latorraca.finance.domain.ports.out;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.data.domain.Sort;
 
 import ar.latorraca.finance.domain.models.Currency;
 
@@ -9,7 +12,7 @@ public interface CurrencyPersistence {
 
 	Currency save(Currency currency);
 	
-	Iterable<Currency> findAll();
+	List<Currency> findAll(Sort sort);
 	
 	Optional<Currency> findById(UUID id);
 	
