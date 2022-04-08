@@ -1,18 +1,20 @@
 package ar.latorraca.finance.domain.ports.in;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-import ar.latorraca.finance.adapters.primary.rest.dtos.PayeeDto;
+import ar.latorraca.finance.domain.models.Payee;
 
 public interface PayeeService {
 
-	PayeeDto save(PayeeDto payeeDto);
+	Payee save(Payee payee);
 	
-	PayeeDto update(PayeeDto payeeDto);
+	Payee update(UUID id, Payee payee);
 	
-	Iterable<PayeeDto> findAll();
+	List<Payee> findAll();
 	
-	PayeeDto findById(UUID id);
+	Optional<Payee> findById(UUID id);
 	
 	void deleteById(UUID id);
 	

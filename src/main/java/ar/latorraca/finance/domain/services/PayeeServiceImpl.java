@@ -1,15 +1,14 @@
 package ar.latorraca.finance.domain.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import ar.latorraca.finance.adapters.primary.rest.dtos.PayeeDto;
 import ar.latorraca.finance.domain.models.Payee;
 import ar.latorraca.finance.domain.ports.in.PayeeService;
 import ar.latorraca.finance.domain.ports.out.PayeePersistence;
@@ -24,42 +23,32 @@ public class PayeeServiceImpl implements PayeeService {
 	private PayeePersistence payeePersistence;
 	
 	@Override
-	public PayeeDto save(PayeeDto payeeDto) {
-		if (payeeDto.getName() == null || payeeDto.getName().equals(""))
+	public Payee save(Payee payee) {
+		if (payee.getName() == null || payee.getName().equals(""))
 			throw new BadRequestException("Payee name cannot be empty");
-		if (payeePersistence.findByName(payeeDto.getName()).isPresent()) 
-			throw new FieldAlreadyExistException(payeeDto.getName());
-		Payee payeeDb = new ModelMapper().map(payeeDto, Payee.class);
-		return new ModelMapper().map(payeePersistence.save(payeeDb), PayeeDto.class);
+		if (payeePersistence.findByName(payee.getName()).isPresent()) 
+			throw new FieldAlreadyExistException(payee.getName());
+		return payeePersistence.save(payee);
 	}
 
 	@Override
-	public PayeeDto update(PayeeDto payeeDto) {
-		if (payeePersistence.findById(payeeDto.getId()).isEmpty()) throw new NotFoundException();
-		Optional<Payee> payeeOptional = payeePersistence.findByName(payeeDto.getName());
-		if (payeeOptional.isPresent() && payeeOptional.get().getId() != payeeDto.getId())
-				throw new FieldAlreadyExistException(payeeDto.getName());
-		Payee payeeDb = new ModelMapper().map(payeeDto, Payee.class);
-		return new ModelMapper().map(payeePersistence.save(payeeDb), PayeeDto.class);
+	public Payee update(UUID id, Payee payee) {
+		if (payeePersistence.findById(id).isEmpty()) throw new NotFoundException();
+		Optional<Payee> payeeTestForDuplicates = payeePersistence.findByName(payee.getName());
+		if (payeeTestForDuplicates.isPresent() && payeeTestForDuplicates.get().getId() != payee.getId())
+				throw new FieldAlreadyExistException(payee.getName());
+		payee.setId(id);
+		return payeePersistence.save(payee);
 	}
 
 	@Override
-	public Iterable<PayeeDto> findAll() {
-		List<PayeeDto> result = new ArrayList<>();
-		payeePersistence.findAll().forEach(payee ->
-				result.add(new ModelMapper().map(payee, PayeeDto.class)));
-		result.sort((PayeeDto p1, PayeeDto p2) -> p1.getName().compareTo(p2.getName()));
-		return result;
+	public List<Payee> findAll() {
+		return payeePersistence.findAll(Sort.by(Direction.ASC, "name"));
 	}
 
 	@Override
-	public PayeeDto findById(UUID id) {
-		Optional<Payee> payee = payeePersistence.findById(id);
-		if (payee.isPresent()) {
-			return new ModelMapper().map(payee.get(), PayeeDto.class);
-		} else {
-			return null;
-		}
+	public Optional<Payee> findById(UUID id) {
+		return payeePersistence.findById(id);
 	}
 
 	@Override

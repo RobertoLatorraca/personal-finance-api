@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ar.latorraca.finance.adapters.secondary.jpa.entities.PayeeEntity;
@@ -27,9 +28,9 @@ public class PayeePersistenceImpl implements PayeePersistence {
 	}
 
 	@Override
-	public Iterable<Payee> findAll() {
+	public List<Payee> findAll(Sort sort) {
 		List<Payee> result = new ArrayList<>();
-		payeeRepository.findAll().forEach(payeeEntity -> {
+		payeeRepository.findAll(sort).forEach(payeeEntity -> {
 			result.add(new ModelMapper().map(payeeEntity, Payee.class));
 		});
 		return result;

@@ -1,7 +1,11 @@
 package ar.latorraca.finance.adapters.primary.rest;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.latorraca.finance.adapters.primary.rest.dtos.PayeeDto;
+import ar.latorraca.finance.domain.models.Payee;
 import ar.latorraca.finance.domain.ports.in.PayeeService;
 import ar.latorraca.finance.exception.errors.BadRequestException;
 
@@ -33,25 +38,31 @@ public class PayeeController {
 		if (payeeDto.getId() != null) {
 			throw new BadRequestException(payeeDto.toString());
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(payeeService.save(payeeDto));
+		Payee payee = new ModelMapper().map(payeeDto, Payee.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(
+				new ModelMapper().map(payeeService.save(payee), PayeeDto.class));
 	}
 	
-	@PutMapping() // TODO el id debe ir en la url segun buenas practicas de REST
-	public ResponseEntity<PayeeDto> update(@RequestBody PayeeDto payeeDto) {
-		if (payeeDto.getId() == null) throw new BadRequestException(payeeDto.toString());
-		return ResponseEntity.status(HttpStatus.OK).body(payeeService.update(payeeDto));
+	@PutMapping(ID)
+	public ResponseEntity<PayeeDto> update(@PathVariable UUID id, @RequestBody PayeeDto payeeDto) {
+		Payee payee = new ModelMapper().map(payeeDto, Payee.class);
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ModelMapper().map(payeeService.update(id, payee), PayeeDto.class));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<Iterable<PayeeDto>> findAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(payeeService.findAll());
+	public ResponseEntity<List<PayeeDto>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(
+				payeeService.findAll().stream().map(
+						p -> new ModelMapper().map(p, PayeeDto.class))
+				.collect(Collectors.toList()));
 	}
 	
 	@GetMapping(ID)
 	public ResponseEntity<PayeeDto> findById(@PathVariable UUID id) {
-		PayeeDto payee = payeeService.findById(id);
-		if (payee == null) return ResponseEntity.notFound().build();
-		return ResponseEntity.ok(payee);
+		Optional<Payee> result = payeeService.findById(id);
+		if (result.isEmpty()) return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(new ModelMapper().map(result.get(), PayeeDto.class));
 	}
 	
 	@DeleteMapping(ID)
