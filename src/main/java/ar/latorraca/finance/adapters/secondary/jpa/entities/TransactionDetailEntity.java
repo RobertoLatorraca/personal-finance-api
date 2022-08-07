@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.CategoryEntity;
+import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.TagEntity;
+
 @Entity
 @Table(name = "transaction_details")
 public class TransactionDetailEntity {

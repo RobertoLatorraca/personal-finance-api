@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.latorraca.finance.adapters.primary.rest.dtos.CurrencyDto;
-import ar.latorraca.finance.domain.models.Currency;
-import ar.latorraca.finance.domain.ports.in.CurrencyService;
+import ar.latorraca.finance.domain.models.account.Currency;
+import ar.latorraca.finance.domain.ports.in.account.CurrencyService;
 import ar.latorraca.finance.exception.errors.BadRequestException;
 
 @RestController
 @RequestMapping(CurrencyController.CURRENCY)
 public class CurrencyController {
 
-	public static final String CURRENCY = "/currencies";
-	public static final String ID = "/{id}";
+	protected static final String CURRENCY = "/currencies";
+	private static final String ID = "/{id}";
 	
 	@Autowired
 	private CurrencyService currencyService;
 	
 	@PostMapping
-	public ResponseEntity<CurrencyDto> save(@RequestBody CurrencyDto currencyDto) {
+	public ResponseEntity<?> create(@RequestBody CurrencyDto currencyDto) {
 		if (currencyDto.getId() != null || currencyDto.isEnabled() == false) {
 			throw new BadRequestException(currencyDto.toString());
 		}
@@ -44,14 +44,14 @@ public class CurrencyController {
 	}
 	
 	@PutMapping(ID)
-	public ResponseEntity<CurrencyDto> update(@PathVariable UUID id, @RequestBody CurrencyDto currencyDto) {
+	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CurrencyDto currencyDto) {
 		Currency currency = new ModelMapper().map(currencyDto, Currency.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ModelMapper().map(currencyService.update(id, currency), CurrencyDto.class));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<CurrencyDto>> findAll() {
+	public ResponseEntity<List<?>> findAll() {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(currencyService.findAll().stream().map(
 						c -> new ModelMapper().map(c, CurrencyDto.class))
@@ -59,7 +59,7 @@ public class CurrencyController {
 	}
 	
 	@GetMapping(ID)
-	public ResponseEntity<CurrencyDto> findById(@PathVariable UUID id) {
+	public ResponseEntity<?> findById(@PathVariable UUID id) {
 		Optional<Currency> result = currencyService.findById(id);
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), CurrencyDto.class));

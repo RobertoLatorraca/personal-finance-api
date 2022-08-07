@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
+import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.PayeeEntity;
+
 @Entity
 @Table(name = "transactions")
 public class TransactionEntity {

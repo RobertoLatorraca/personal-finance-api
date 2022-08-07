@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.latorraca.finance.adapters.primary.rest.dtos.PayeeDto;
-import ar.latorraca.finance.domain.models.Payee;
+import ar.latorraca.finance.domain.models.transaction.Payee;
 import ar.latorraca.finance.domain.ports.in.PayeeService;
 import ar.latorraca.finance.exception.errors.BadRequestException;
 
@@ -27,14 +27,14 @@ import ar.latorraca.finance.exception.errors.BadRequestException;
 @RequestMapping(PayeeController.PAYEES)
 public class PayeeController {
 
-	public static final String PAYEES = "/payees";
-	public static final String ID = "/{id}";
+	protected static final String PAYEES = "/payees";
+	private static final String ID = "/{id}";
 
 	@Autowired
 	private PayeeService payeeService;
 	
 	@PostMapping()
-	public ResponseEntity<PayeeDto> save(@RequestBody PayeeDto payeeDto) {
+	public ResponseEntity<?> create(@RequestBody PayeeDto payeeDto) {
 		if (payeeDto.getId() != null) {
 			throw new BadRequestException(payeeDto.toString());
 		}
@@ -44,14 +44,14 @@ public class PayeeController {
 	}
 	
 	@PutMapping(ID)
-	public ResponseEntity<PayeeDto> update(@PathVariable UUID id, @RequestBody PayeeDto payeeDto) {
+	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody PayeeDto payeeDto) {
 		Payee payee = new ModelMapper().map(payeeDto, Payee.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ModelMapper().map(payeeService.update(id, payee), PayeeDto.class));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<PayeeDto>> findAll() {
+	public ResponseEntity<List<?>> findAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(
 				payeeService.findAll().stream().map(
 						p -> new ModelMapper().map(p, PayeeDto.class))
@@ -59,7 +59,7 @@ public class PayeeController {
 	}
 	
 	@GetMapping(ID)
-	public ResponseEntity<PayeeDto> findById(@PathVariable UUID id) {
+	public ResponseEntity<?> findById(@PathVariable UUID id) {
 		Optional<Payee> result = payeeService.findById(id);
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), PayeeDto.class));

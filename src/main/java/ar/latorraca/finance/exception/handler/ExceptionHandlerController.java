@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import ar.latorraca.finance.exception.errors.*;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class ExceptionHandlerController {
 
 	@ResponseStatus(HttpStatus.CONFLICT)

@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.latorraca.finance.adapters.primary.rest.dtos.BankDto;
-import ar.latorraca.finance.domain.models.Bank;
-import ar.latorraca.finance.domain.ports.in.BankService;
+import ar.latorraca.finance.domain.models.account.Bank;
+import ar.latorraca.finance.domain.ports.in.account.BankService;
 import ar.latorraca.finance.exception.errors.BadRequestException;
 
 @RestController
 @RequestMapping(BankController.BANKS)
 public class BankController {
 
-	public static final String BANKS = "/banks";
-	public static final String ID = "/{id}";
+	protected static final String BANKS = "/banks";
+	private static final String ID = "/{id}";
 
 	@Autowired
 	private BankService bankService;
 	
 	@PostMapping()
-	public ResponseEntity<BankDto> save(@RequestBody BankDto bankDto) {
+	public ResponseEntity<?> create(@RequestBody BankDto bankDto) {
 		if (bankDto.getId() != null || bankDto.isEnabled() == false) {
 			throw new BadRequestException(bankDto.toString());
 		}
@@ -44,14 +44,14 @@ public class BankController {
 	}
 	
 	@PutMapping(ID)
-	public ResponseEntity<BankDto> update(@PathVariable UUID id, @RequestBody BankDto bankDto) {
+	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody BankDto bankDto) {
 		Bank bank = new ModelMapper().map(bankDto, Bank.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ModelMapper().map(bankService.update(id, bank), BankDto.class));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<BankDto>> findAll() {
+	public ResponseEntity<List<?>> findAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(
 				bankService.findAll().stream().map(
 						b -> new ModelMapper().map(b, BankDto.class))
@@ -59,7 +59,7 @@ public class BankController {
 	}
 	
 	@GetMapping(ID)
-	public ResponseEntity<BankDto> findById(@PathVariable UUID id) {
+	public ResponseEntity<?> findById(@PathVariable UUID id) {
 		Optional<Bank> result = bankService.findById(id);
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), BankDto.class));
