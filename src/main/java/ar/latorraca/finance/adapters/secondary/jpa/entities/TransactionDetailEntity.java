@@ -1,9 +1,12 @@
 package ar.latorraca.finance.adapters.secondary.jpa.entities;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,11 +15,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.CategoryEntity;
 import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.TagEntity;
+import ar.latorraca.finance.domain.models.transaction.TransactionType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "transaction_details")
+@Data
+@NoArgsConstructor
 public class TransactionDetailEntity {
 
 	@Id
@@ -24,69 +35,34 @@ public class TransactionDetailEntity {
 	@org.hibernate.annotations.Type(type = "uuid-char")
 	@Column(name = "id", columnDefinition = "varchar(36)")
 	private UUID id;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_transaction", nullable = false)
-    private TransactionEntity transaction;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_category", nullable = false)
-    private CategoryEntity category;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_tag", nullable = false)
-    private TagEntity tag;
-    
-    private String memo;
-    
-    private Double amount;
 
-	public UUID getId() {
-		return id;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_transaction", nullable = false)
+	private TransactionEntity transaction;
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_category", nullable = false)
+	private CategoryEntity category;
 
-	public TransactionEntity getTransaction() {
-		return transaction;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_tag", nullable = false)
+	private TagEntity tag;
 
-	public void setTransaction(TransactionEntity transaction) {
-		this.transaction = transaction;
-	}
+	@Column(columnDefinition = "varchar(255)")
+	private String memo;
 
-	public CategoryEntity getCategory() {
-		return category;
-	}
+	@Enumerated(EnumType.STRING)
+	@Column(name = "transaction_type", columnDefinition = "varchar(15)", nullable = false)
+	private TransactionType transactionType;
 
-	public void setCategory(CategoryEntity category) {
-		this.category = category;
-	}
+	private Double amount;
 
-	public TagEntity getTag() {
-		return tag;
-	}
+	@CreationTimestamp	
+	@Column(name = "created_at", updatable = false)
+	private Timestamp createdAt;
 
-	public void setTag(TagEntity tag) {
-		this.tag = tag;
-	}
+	@UpdateTimestamp
+	@Column(name = "modified_at")
+	private Timestamp modifiedAt;
 
-	public String getMemo() {
-		return memo;
-	}
-
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-    
 }
