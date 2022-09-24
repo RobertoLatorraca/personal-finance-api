@@ -15,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -38,7 +36,7 @@ public class AccountEntity {
 	@Column(columnDefinition = "varchar(50)", nullable = false, unique = false)
 	private String account;
 
-	@Transient
+//	@Transient
 	@OneToMany(mappedBy = "account")
 	private Set<BalanceEntity> balance = new HashSet<>();
 

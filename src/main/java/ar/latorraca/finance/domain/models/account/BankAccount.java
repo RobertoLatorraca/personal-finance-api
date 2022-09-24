@@ -8,6 +8,5 @@ import lombok.Setter;
 public class BankAccount extends Account {
 
 	private Bank bank;
-	private Balance balance;
 
 }

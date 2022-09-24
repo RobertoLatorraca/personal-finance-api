@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.latorraca.finance.adapters.primary.rest.dtos.AccountDto;
+import ar.latorraca.finance.domain.models.account.Account;
 import ar.latorraca.finance.domain.ports.in.account.AccountService;
 import ar.latorraca.finance.domain.services.mappers.ModelMapperFacade;
 
@@ -24,15 +25,15 @@ public class AccountController {
 
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody AccountDto accountDto) {
+		Account account = accountService.save(
+				ModelMapperFacade.map(accountDto, accountDto.getAccountType().getClazz()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(
-				ModelMapperFacade.map(accountService.save(
-						ModelMapperFacade.map(accountDto,
-								accountDto.getAccountType().getClazz())),
-						AccountDto.class));
+				ModelMapperFacade.map(account, AccountDto.class));
 	}
 
 	@GetMapping
 	public ResponseEntity<?> findAll() {
+		// TODO Convert to AccountDto.class
 		return ResponseEntity.ok().body(accountService.findAll());
 	}
 

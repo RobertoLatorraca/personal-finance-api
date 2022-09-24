@@ -1,6 +1,8 @@
 package ar.latorraca.finance.domain.services.mappers;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.modelmapper.Condition;
 import org.modelmapper.Conditions;
@@ -30,6 +32,14 @@ public interface ModelMapperFacade {
 		mapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 		mapper.map(source, destination);
 		return destination;
+	}
+
+	public static <S, D> Set<D> mapSet(Set<S> source, Class<D> destinationType) {
+		ModelMapper modelMapper = new ModelMapper();
+		return source
+				.stream()
+				.map(e -> modelMapper.map(e, destinationType))
+				.collect(Collectors.toSet());
 	}
 
 }
