@@ -3,6 +3,8 @@ package ar.latorraca.finance.domain.models.transaction;
 public enum TransactionType {
 
 	INCOME,
-	EXPENSE
+	EXPENSE,
+	TRANSFER,
+	ATM
 
 }

@@ -34,9 +34,6 @@ public class CategoryEntity {
 	@Column(columnDefinition = "varchar(50)", nullable = false, unique = true)
 	private String name;
 
-	@Column(nullable = false)
-	private String categoryType;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_category_id")
 	private CategoryEntity parentCategory;

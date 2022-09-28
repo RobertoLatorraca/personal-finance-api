@@ -1,7 +1,6 @@
-package ar.latorraca.finance.adapters.secondary.jpa.entities;
+package ar.latorraca.finance.adapters.secondary.jpa.entities.transaction;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -19,17 +18,15 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
-import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.PayeeEntity;
 import ar.latorraca.finance.domain.models.transaction.TransactionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "transaction_details")
 @Data
 @NoArgsConstructor
-public class TransactionEntity {
+public class TransactionDetailEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,22 +35,25 @@ public class TransactionEntity {
 	private UUID id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_payee", nullable = false)
-	private PayeeEntity payee;
+	@JoinColumn(name = "fk_transaction_id", nullable = false)
+	private TransactionEntity transaction;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_account", nullable = false)
-	private AccountEntity account;
+	@JoinColumn(name = "fk_category_id", nullable = false)
+	private CategoryEntity category;
 
-	@Column(nullable = false)
-	private Date date;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_tag_id", nullable = false)
+	private TagEntity tag;
+
+	@Column(columnDefinition = "varchar(255)")
+	private String memo;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "transaction_type", columnDefinition = "varchar(15)", nullable = false)
 	private TransactionType transactionType;
 
-	@Column(name = "total_amount", nullable = false)
-	private Double totalAmount;
+	private Double amount;
 
 	@CreationTimestamp	
 	@Column(name = "created_at", updatable = false)

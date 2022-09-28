@@ -11,7 +11,6 @@ public class Category {
 
 	private UUID id;
 	private String name;
-	private CategoryType categoryType;
 	private Category parentCategory;
 	private String description;
 	private boolean enabled = true;

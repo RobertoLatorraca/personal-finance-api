@@ -34,7 +34,7 @@ public class BankController {
 	private BankService bankService;
 	
 	@PostMapping()
-	public ResponseEntity<?> create(@RequestBody BankDto bankDto) {
+	public ResponseEntity<BankDto> create(@RequestBody BankDto bankDto) {
 		if (bankDto.getId() != null || bankDto.isEnabled() == false) {
 			throw new BadRequestException(bankDto.toString());
 		}
@@ -44,14 +44,14 @@ public class BankController {
 	}
 	
 	@PutMapping(ID)
-	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody BankDto bankDto) {
+	public ResponseEntity<BankDto> update(@PathVariable UUID id, @RequestBody BankDto bankDto) {
 		Bank bank = new ModelMapper().map(bankDto, Bank.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ModelMapper().map(bankService.update(id, bank), BankDto.class));
 	}
 	
 	@GetMapping()
-	public ResponseEntity<List<?>> findAll() {
+	public ResponseEntity<List<BankDto>> findAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(
 				bankService.findAll().stream().map(
 						b -> new ModelMapper().map(b, BankDto.class))
@@ -59,7 +59,7 @@ public class BankController {
 	}
 	
 	@GetMapping(ID)
-	public ResponseEntity<?> findById(@PathVariable UUID id) {
+	public ResponseEntity<BankDto> findById(@PathVariable UUID id) {
 		Optional<Bank> result = bankService.findById(id);
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), BankDto.class));

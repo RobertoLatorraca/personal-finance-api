@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import ar.latorraca.finance.domain.models.transaction.Payee;
-import ar.latorraca.finance.domain.ports.in.PayeeService;
+import ar.latorraca.finance.domain.ports.in.transaction.PayeeService;
 import ar.latorraca.finance.domain.ports.out.transaction.PayeePersistence;
 import ar.latorraca.finance.exception.errors.BadRequestException;
 import ar.latorraca.finance.exception.errors.FieldAlreadyExistException;

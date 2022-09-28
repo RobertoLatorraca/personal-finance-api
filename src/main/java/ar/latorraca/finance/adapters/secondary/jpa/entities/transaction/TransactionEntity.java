@@ -1,6 +1,9 @@
-package ar.latorraca.finance.adapters.secondary.jpa.entities;
+package ar.latorraca.finance.adapters.secondary.jpa.entities.transaction;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -13,22 +16,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.CategoryEntity;
-import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.TagEntity;
+import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
 import ar.latorraca.finance.domain.models.transaction.TransactionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "transaction_details")
+@Table(name = "transactions")
 @Data
 @NoArgsConstructor
-public class TransactionDetailEntity {
+public class TransactionEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,25 +41,32 @@ public class TransactionDetailEntity {
 	private UUID id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_transaction", nullable = false)
-	private TransactionEntity transaction;
+	@JoinColumn(name = "fk_payee_id", nullable = false)
+	private PayeeEntity payee;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_category", nullable = false)
-	private CategoryEntity category;
+	@JoinColumn(name = "fk_account_id", nullable = false)
+	private AccountEntity account;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_tag", nullable = false)
-	private TagEntity tag;
+	@Column(nullable = false)
+	private Date date;
 
-	@Column(columnDefinition = "varchar(255)")
-	private String memo;
+	@Column(name = "total_amount", nullable = false)
+	private Double totalAmount;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "transaction_type", columnDefinition = "varchar(15)", nullable = false)
 	private TransactionType transactionType;
 
-	private Double amount;
+	@OneToOne
+	@JoinColumn(name = "fk_related_transaction_id")
+	private TransactionEntity relatedTransaction;
+
+	@OneToMany(mappedBy = "transaction")
+	private Set<TransactionDetailEntity> transactionDetails = new HashSet<>();
+
+	private String notes;
+	private Boolean flag = false;
 
 	@CreationTimestamp	
 	@Column(name = "created_at", updatable = false)

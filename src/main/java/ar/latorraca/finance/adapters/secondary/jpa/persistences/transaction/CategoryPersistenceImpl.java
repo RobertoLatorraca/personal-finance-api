@@ -2,6 +2,7 @@ package ar.latorraca.finance.adapters.secondary.jpa.persistences.transaction;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
 		return categoryRepository.findAll(sort).stream()
 				.map(c -> ModelMapperFacade.map(c, Category.class))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Optional<Category> findById(UUID id) {
+		return categoryRepository.findById(id)
+				.map(c -> ModelMapperFacade.map(c, Category.class));
 	}
 
 }

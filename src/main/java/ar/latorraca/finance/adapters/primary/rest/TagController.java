@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.latorraca.finance.adapters.primary.rest.dtos.TagDto;
 import ar.latorraca.finance.domain.models.transaction.Tag;
-import ar.latorraca.finance.domain.ports.in.TagService;
+import ar.latorraca.finance.domain.ports.in.transaction.TagService;
 import ar.latorraca.finance.domain.services.mappers.ModelMapperFacade;
 import ar.latorraca.finance.exception.errors.BadRequestException;
 
