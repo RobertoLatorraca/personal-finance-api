@@ -1,7 +1,6 @@
 package ar.latorraca.finance.domain.services.account;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import ar.latorraca.finance.domain.models.account.Account;
 import ar.latorraca.finance.domain.ports.in.account.AccountService;
 import ar.latorraca.finance.domain.ports.in.account.BalanceService;
 import ar.latorraca.finance.domain.ports.out.account.AccountPersistence;
+import ar.latorraca.finance.exception.errors.BadRequestException;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -21,14 +21,11 @@ public class AccountServiceImpl implements AccountService {
 	private BalanceService balanceService;
 
 	@Override
-	public <T extends Account> T save(T account) {
+	public <T extends Account> T create(T account) {
+		if (account.getId() != null) throw new BadRequestException("Account id must be null.");
 		T result = accountPersistence.save(account);
-		if (account.getBalance() == null) {
-			result.setBalance(
-					Set.of(balanceService.save(
-							result, balanceService.createBalance(account.getCurrency()))
-			));
-		}
+		result.addBalance(balanceService.save(
+				result, balanceService.createBalance(account.getCurrency())));
 		return result;
 	}
 

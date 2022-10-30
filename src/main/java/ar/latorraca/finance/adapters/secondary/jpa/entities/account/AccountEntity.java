@@ -36,7 +36,10 @@ public class AccountEntity {
 	@Column(columnDefinition = "varchar(50)", nullable = false, unique = false)
 	private String account;
 
-//	@Transient
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_currency_id", nullable = false)
+	private CurrencyEntity currency;
+
 	@OneToMany(mappedBy = "account")
 	private Set<BalanceEntity> balance = new HashSet<>();
 
@@ -47,9 +50,14 @@ public class AccountEntity {
 	@JoinColumn(name = "fk_bank_id")
 	private BankEntity bank;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_currency_id", nullable = false)
-	private CurrencyEntity currency;
+	@Column(name = "account_number", columnDefinition = "varchar(30)", nullable = true)
+	private String accountNumber;
+
+	@Column(name = "cbu", columnDefinition = "varchar(22)", nullable = true)
+	private String cbu;
+
+	@Column(name = "alias", columnDefinition = "varchar(30)", nullable = true)
+	private String alias;
 
 	@Column(nullable = false)
 	private boolean enabled = true;
