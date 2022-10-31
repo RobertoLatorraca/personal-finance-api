@@ -1,5 +1,6 @@
 package ar.latorraca.finance.domain.models.account;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,7 @@ public class CreditCardAccount extends Account {
 
 	private Set<Balance> balance = new HashSet<>();
 	private CreditCardBrand brand;
-	private List<CreditCardStatement> statements;
+	private List<CreditCardStatement> statements = new ArrayList<>();
 
 	@Override
 	public void addBalance(Balance balance) {

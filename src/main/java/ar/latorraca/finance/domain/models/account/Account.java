@@ -12,7 +12,6 @@ public abstract class Account {
 	private UUID id;
 	private String account;
 	private Currency currency;
-//	private Balance balance;
 	private AccountType accountType;
 	private boolean enabled;
 
