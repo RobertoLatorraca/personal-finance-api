@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AccountDto {
+public class CreateAccountDto {
 
 	private UUID id;
 	private String account;
@@ -27,6 +27,5 @@ public class AccountDto {
 	private String accountNumber;
 	private String cbu;
 	private String alias;
-	private boolean enabled = true;
 
 }
