@@ -15,4 +15,6 @@ public abstract class Account {
 	private AccountType accountType;
 	private boolean enabled;
 
+	public abstract void addBalance(Balance balance);
+
 }

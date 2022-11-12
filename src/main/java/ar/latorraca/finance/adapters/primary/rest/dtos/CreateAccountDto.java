@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AccountDto {
+public class CreateAccountDto {
 
 	private UUID id;
 	private String account;
@@ -29,11 +29,9 @@ public class AccountDto {
 	private String accountNumber;
 	private String cbu;
 	private String alias;
-
+	
 	private CreditCardBrand creditCardBrand;
 	private String creditCardNumber;
 	private Date expiration;
-
-	private boolean enabled = true;
 
 }
