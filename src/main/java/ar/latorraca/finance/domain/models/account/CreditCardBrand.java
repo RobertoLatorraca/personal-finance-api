@@ -4,7 +4,7 @@ public enum CreditCardBrand {
 
 	VISA,
 	MASTERCARD,
-	AMERICAN_EXPRESS,
+	AMEX,
 	NARANJA
 
 }

@@ -3,7 +3,7 @@ package ar.latorraca.finance.domain.models.account;
 public enum AccountType {
 
 	BANK(BankAccount.class),
-	CREDIT_CARD(BankAccount.class),
+	CREDIT_CARD(CreditCardAccount.class),
 	INVESTMENT(BankAccount.class),
 	CASH(CashAccount.class);
 
