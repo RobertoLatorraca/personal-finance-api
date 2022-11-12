@@ -1,6 +1,7 @@
 package ar.latorraca.finance.adapters.secondary.jpa.entities.account;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -58,6 +60,14 @@ public class AccountEntity {
 
 	@Column(name = "alias", columnDefinition = "varchar(30)", nullable = true)
 	private String alias;
+
+	@Column(name = "credit_card_brand", columnDefinition = "varchar(20)", nullable = true)
+	private String creditCardBrand;
+
+	@Column(name = "credit_card_number", columnDefinition = "varchar(19)", nullable = true)
+	private String creditCardNumber;
+
+	private Date expiration;
 
 	@Column(nullable = false)
 	private boolean enabled = true;

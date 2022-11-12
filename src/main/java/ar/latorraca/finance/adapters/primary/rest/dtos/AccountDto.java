@@ -1,11 +1,13 @@
 package ar.latorraca.finance.adapters.primary.rest.dtos;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ar.latorraca.finance.domain.models.account.AccountType;
+import ar.latorraca.finance.domain.models.account.CreditCardBrand;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,6 +29,11 @@ public class AccountDto {
 	private String accountNumber;
 	private String cbu;
 	private String alias;
+
+	private CreditCardBrand creditCardBrand;
+	private String creditCardNumber;
+	private Date expiration;
+
 	private boolean enabled = true;
 
 }

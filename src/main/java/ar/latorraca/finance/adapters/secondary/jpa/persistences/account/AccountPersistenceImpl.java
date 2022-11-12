@@ -14,6 +14,7 @@ import ar.latorraca.finance.domain.models.account.AccountType;
 import ar.latorraca.finance.domain.models.account.Balance;
 import ar.latorraca.finance.domain.models.account.BankAccount;
 import ar.latorraca.finance.domain.models.account.CashAccount;
+import ar.latorraca.finance.domain.models.account.CreditCardAccount;
 import ar.latorraca.finance.domain.ports.out.account.AccountPersistence;
 import ar.latorraca.finance.domain.services.mappers.ModelMapperFacade;
 
@@ -47,6 +48,9 @@ public class AccountPersistenceImpl implements AccountPersistence {
 					}
 					if (account instanceof CashAccount) {
 						((CashAccount) account).setBalance(ModelMapperFacade.mapSet(balanceDb, Balance.class));
+					}
+					if (account instanceof CreditCardAccount) {
+						((CreditCardAccount) account).setBalance(ModelMapperFacade.mapSet(balanceDb, Balance.class));
 					}
 					return account;
 				})

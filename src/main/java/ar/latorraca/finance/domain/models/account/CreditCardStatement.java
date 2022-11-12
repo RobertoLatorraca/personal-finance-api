@@ -11,6 +11,7 @@ import lombok.Setter;
 public class CreditCardStatement {
 
 	private Date closing;
+	private Date nextClosing;	
 	private Date expiration;
 	private Set<Balance> balance;
 
