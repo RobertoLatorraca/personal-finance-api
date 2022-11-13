@@ -19,6 +19,7 @@ public class TransactionDetail {
 	private Category category;
 	private Tag tag;
 	private String memo;
+	private TransactionType transactionType;
 	private Double amount;
 
 }

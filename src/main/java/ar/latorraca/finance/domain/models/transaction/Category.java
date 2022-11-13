@@ -13,6 +13,7 @@ public class Category {
 	private String name;
 	private Category parentCategory;
 	private String description;
+	private CategoryGroup categoryGroup;
 	private boolean enabled = true;
 
 }

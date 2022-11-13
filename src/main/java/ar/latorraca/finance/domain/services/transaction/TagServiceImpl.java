@@ -1,4 +1,4 @@
-package ar.latorraca.finance.domain.services;
+package ar.latorraca.finance.domain.services.transaction;
 
 import java.util.List;
 import java.util.Optional;

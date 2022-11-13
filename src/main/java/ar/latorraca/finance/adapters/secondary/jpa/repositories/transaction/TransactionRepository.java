@@ -1,4 +1,4 @@
-package ar.latorraca.finance.adapters.secondary.jpa.repositories;
+package ar.latorraca.finance.adapters.secondary.jpa.repositories.transaction;
 
 import java.util.UUID;
 

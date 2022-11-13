@@ -3,6 +3,7 @@ package ar.latorraca.finance.adapters.primary.rest.dtos;
 import java.util.UUID;
 
 import ar.latorraca.finance.domain.models.transaction.Category;
+import ar.latorraca.finance.domain.models.transaction.CategoryGroup;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +17,7 @@ public class CategoryDto {
 	private String name;
 	private Category parentCategory;
 	private String description;
+	private CategoryGroup categoryGroup;
 	private boolean enabled = true;
 
 }

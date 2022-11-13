@@ -5,7 +5,7 @@ public enum AccountType {
 	BANK(BankAccount.class),
 	CREDIT_CARD(CreditCardAccount.class),
 	INVESTMENT(BankAccount.class),
-	CASH(BankAccount.class);
+	CASH(CashAccount.class);
 
 	private Class<? extends Account> clazz;
 

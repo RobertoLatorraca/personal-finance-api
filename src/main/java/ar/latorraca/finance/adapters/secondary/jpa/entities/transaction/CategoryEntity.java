@@ -41,6 +41,9 @@ public class CategoryEntity {
 	@Column(columnDefinition = "varchar(255)")
 	private String description;
 
+	@Column(name = "category_group", nullable = false)
+	private String categoryGroup;
+
 	@Column(nullable = false)
 	private boolean enabled = true;
 
