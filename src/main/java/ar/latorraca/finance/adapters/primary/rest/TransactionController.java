@@ -26,13 +26,19 @@ public class TransactionController {
 	private TransactionService transactionService;
 
 	@PostMapping
-	public ResponseEntity<TransactionDto> create(@RequestBody @Valid TransactionDto transactionDto) {
-		if (transactionDto.getId() != null)
-			throw new BadRequestException(transactionDto.toString());
+//	public ResponseEntity<TransactionDto> create(@RequestBody @Valid TransactionDto transactionDto) {
+	public ResponseEntity<Transaction> create(@RequestBody @Valid TransactionDto transactionDto) {
+		if (transactionDto.getId() != null) throw new BadRequestException(transactionDto.toString());
+		
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(
+				transactionService.save(ModelMapperFacade.mapDtoToTransaction(transactionDto)));
+		/*
 		return ResponseEntity.status(HttpStatus.CREATED).body(
 				ModelMapperFacade.map(
-						transactionService.save(ModelMapperFacade.map(transactionDto, Transaction.class)),
+						transactionService.save(ModelMapperFacade.mapDtoToTransaction(transactionDto)),
 						TransactionDto.class));
+		*/
 	}
 
 }

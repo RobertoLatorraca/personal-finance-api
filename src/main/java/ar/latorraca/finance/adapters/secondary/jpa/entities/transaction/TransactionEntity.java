@@ -24,6 +24,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
+import ar.latorraca.finance.adapters.secondary.jpa.entities.account.CurrencyEntity;
 import ar.latorraca.finance.domain.models.transaction.TransactionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,6 +51,10 @@ public class TransactionEntity {
 
 	@Column(nullable = false)
 	private Date date;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_currency_id", nullable = false)
+	private CurrencyEntity currency;
 
 	@Column(name = "total_amount", nullable = false)
 	private Double totalAmount;

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import ar.latorraca.finance.domain.models.transaction.Category;
+import ar.latorraca.finance.domain.models.transaction.CategoryGroup;
 import ar.latorraca.finance.domain.ports.in.transaction.CategoryService;
 import ar.latorraca.finance.domain.ports.out.transaction.CategoryPersistence;
 import ar.latorraca.finance.exception.errors.BadRequestException;
@@ -51,6 +52,11 @@ public class CategoryServiceImpl implements CategoryService {
 				throw new FieldAlreadyExistException(category.getName());
 		category.setId(id);
 		return categoryPersistence.save(category);
+	}
+
+	@Override
+	public List<CategoryGroup> findCategoryGroups() {
+		return List.of(CategoryGroup.values());
 	}
 
 }

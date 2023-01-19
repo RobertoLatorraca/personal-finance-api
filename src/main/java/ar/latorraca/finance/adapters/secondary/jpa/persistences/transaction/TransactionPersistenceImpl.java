@@ -17,9 +17,19 @@ public class TransactionPersistenceImpl implements TransactionPersistence {
 
 	@Override
 	public Transaction save(Transaction transaction) {
+
+
+		
+
+
+		TransactionEntity transactionEntity = transactionRepository.save(
+				ModelMapperFacade.map(transaction, TransactionEntity.class));
+		System.out.println(transactionEntity.getAccount().toString());
+		return ModelMapperFacade.mapEntityToTransaction(transactionEntity);
+		/*
 		return ModelMapperFacade.map(
 				transactionRepository.save(ModelMapperFacade.map(transaction, TransactionEntity.class)),
-				Transaction.class);
+				Transaction.class);*/
 	}
 
 }

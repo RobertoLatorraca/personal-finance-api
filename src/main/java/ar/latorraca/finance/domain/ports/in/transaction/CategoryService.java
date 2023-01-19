@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import ar.latorraca.finance.domain.models.transaction.Category;
+import ar.latorraca.finance.domain.models.transaction.CategoryGroup;
 
 public interface CategoryService {
 
@@ -15,5 +16,7 @@ public interface CategoryService {
 	Optional<Category> findById(UUID id);
 
 	Category update(UUID id, Category category);
+
+	List<CategoryGroup> findCategoryGroups();
 
 }
