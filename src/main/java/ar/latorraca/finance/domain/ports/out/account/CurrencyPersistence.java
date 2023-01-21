@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.ports.out.account;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.domain.Sort;
 
@@ -14,9 +13,9 @@ public interface CurrencyPersistence {
 	
 	List<Currency> findAll(Sort sort);
 	
-	Optional<Currency> findById(UUID id);
+	Optional<Currency> findById(String id);
 	
-	void deleteById(UUID id);
+	void deleteById(String id);
 	
 	Optional<Currency> findByCurrencyOrCode(String currency, String code);
 	
