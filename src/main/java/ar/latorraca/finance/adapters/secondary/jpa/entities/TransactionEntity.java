@@ -3,15 +3,15 @@ package ar.latorraca.finance.adapters.secondary.jpa.entities;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
 import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.PayeeEntity;
@@ -19,33 +19,33 @@ import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.PayeeEnt
 @Entity
 @Table(name = "transactions")
 public class TransactionEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@org.hibernate.annotations.Type(type = "uuid-char")
 	@Column(name = "id", columnDefinition = "varchar(36)")
 	private UUID id;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_payee", nullable = false)
-    private PayeeEntity payee;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_account", nullable = false)
-    private AccountEntity account;
-	
-    @Column(nullable = false)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_payee", nullable = false)
+	private PayeeEntity payee;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_account", nullable = false)
+	private AccountEntity account;
+
+	@Column(nullable = false)
 	private Date date;
-	
-    @Column(nullable = false)
-    private String type; // values = {INCOME, EXPENSE}
-	
-    @Column(nullable = false)
+
+	@Column(nullable = false)
+	private String type; // values = {INCOME, EXPENSE}
+
+	@Column(nullable = false)
 	private Double totalAmount;
-    
+
 	@Column(name = "created_at", nullable = false)
 	private Date createdAt;
-	
+
 	@Column(name = "modified_at")
 	private Date modifiedAt;
 
