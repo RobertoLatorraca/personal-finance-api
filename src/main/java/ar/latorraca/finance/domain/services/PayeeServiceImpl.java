@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -34,7 +33,7 @@ public class PayeeServiceImpl implements PayeeService {
 	}
 
 	@Override
-	public Payee update(UUID id, Payee payee) {
+	public Payee update(String id, Payee payee) {
 		if (payeePersistence.findById(id).isEmpty()) throw new NotFoundException();
 		Optional<Payee> payeeTestForDuplicates = payeePersistence.findByName(payee.getName());
 		if (payeeTestForDuplicates.isPresent() && payeeTestForDuplicates.get().getId().compareTo(payee.getId()) != TRUE)
@@ -49,12 +48,12 @@ public class PayeeServiceImpl implements PayeeService {
 	}
 
 	@Override
-	public Optional<Payee> findById(UUID id) {
+	public Optional<Payee> findById(String id) {
 		return payeePersistence.findById(id);
 	}
 
 	@Override
-	public void deleteById(UUID id) {
+	public void deleteById(String id) {
 		payeePersistence.deleteById(id);
 	}
 

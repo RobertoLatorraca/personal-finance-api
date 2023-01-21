@@ -47,7 +47,7 @@ public class PayeeController {
 	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody PayeeDto payeeDto) {
 		Payee payee = new ModelMapper().map(payeeDto, Payee.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
-				new ModelMapper().map(payeeService.update(id, payee), PayeeDto.class));
+				new ModelMapper().map(payeeService.update(id.toString(), payee), PayeeDto.class));
 	}
 	
 	@GetMapping()
@@ -60,14 +60,14 @@ public class PayeeController {
 	
 	@GetMapping(ID)
 	public ResponseEntity<?> findById(@PathVariable UUID id) {
-		Optional<Payee> result = payeeService.findById(id);
+		Optional<Payee> result = payeeService.findById(id.toString());
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), PayeeDto.class));
 	}
 	
 	@DeleteMapping(ID)
 	public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-		payeeService.deleteById(id);
+		payeeService.deleteById(id.toString());
 		return ResponseEntity.noContent().build();
 	}
 	

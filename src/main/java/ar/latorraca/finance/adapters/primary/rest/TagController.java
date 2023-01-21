@@ -52,7 +52,7 @@ public class TagController {
 
 	@GetMapping(ID)
 	public ResponseEntity<?> findById(@PathVariable UUID id) {
-		Optional<Tag> result = tagService.findById(id);
+		Optional<Tag> result = tagService.findById(id.toString());
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(ModelMapperFacade.map(result.get(), TagDto.class));
 	}
@@ -61,7 +61,7 @@ public class TagController {
 	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody TagDto tagDto) {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(ModelMapperFacade.map(
-						tagService.update(id, ModelMapperFacade.map(tagDto, Tag.class)),
+						tagService.update(id.toString(), ModelMapperFacade.map(tagDto, Tag.class)),
 						TagDto.class));
 	}
 
