@@ -2,7 +2,6 @@ package ar.latorraca.finance.adapters.primary.rest.dtos;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class CreateAccountDto {
 
-	private UUID id;
+	private String id;
 	private String account;
 	private AccountType accountType;
 	private CurrencyDto currency;
