@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.services.account;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -34,7 +33,7 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public Bank update(UUID id, Bank bank) {
+	public Bank update(String id, Bank bank) {
 		if (bankPersistence.findById(id).isEmpty()) throw new NotFoundException();
 		Optional<Bank> bankTestForDuplicates = bankPersistence.findByName(bank.getName());
 		if (bankTestForDuplicates.isPresent() && bankTestForDuplicates.get().getId().compareTo(bank.getId()) != TRUE)
@@ -49,12 +48,12 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public Optional<Bank> findById(UUID id) {
+	public Optional<Bank> findById(String id) {
 		return bankPersistence.findById(id);
 	}
 
 	@Override
-	public void deleteById(UUID id) {
+	public void deleteById(String id) {
 		bankPersistence.deleteById(id);
 	}
 

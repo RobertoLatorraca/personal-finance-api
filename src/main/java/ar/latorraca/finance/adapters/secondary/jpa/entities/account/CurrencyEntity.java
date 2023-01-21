@@ -1,14 +1,12 @@
 package ar.latorraca.finance.adapters.secondary.jpa.entities.account;
 
-import java.util.UUID;
+import org.hibernate.annotations.UuidGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +17,10 @@ import lombok.NoArgsConstructor;
 public class CurrencyEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@org.hibernate.annotations.Type(type = "uuid-char")
+	@GeneratedValue
+	@UuidGenerator
 	@Column(name = "id", columnDefinition = "varchar(36)")
-	private UUID id;
+	private String id;
 	
 	@Column(columnDefinition = "varchar(3)", nullable = false, unique = false)
 	private String cca3;

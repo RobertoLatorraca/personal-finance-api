@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -39,12 +38,12 @@ public class TagServiceImpl implements TagService {
 	}
 
 	@Override
-	public Optional<Tag> findById(UUID id) {
+	public Optional<Tag> findById(String id) {
 		return tagPersistence.findById(id);
 	}
 
 	@Override
-	public Tag update(UUID id, Tag tag) {
+	public Tag update(String id, Tag tag) {
 		if (tag.getParentTag() != null && tag.getParentTag().isEnabled() == false)
 				throw new BadRequestException("A parent Tag diabled is not allowed.");
 		if (tagPersistence.findById(id).isEmpty()) throw new NotFoundException();

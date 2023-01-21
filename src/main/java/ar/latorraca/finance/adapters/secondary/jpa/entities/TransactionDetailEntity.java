@@ -1,29 +1,27 @@
 package ar.latorraca.finance.adapters.secondary.jpa.entities;
 
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import org.hibernate.annotations.UuidGenerator;
 
 import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.CategoryEntity;
 import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.TagEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "transaction_details")
 public class TransactionDetailEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@org.hibernate.annotations.Type(type = "uuid-char")
+	@GeneratedValue
+	@UuidGenerator
 	@Column(name = "id", columnDefinition = "varchar(36)")
-	private UUID id;
+	private String id;
 	
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_transaction", nullable = false)
@@ -41,11 +39,11 @@ public class TransactionDetailEntity {
     
     private Double amount;
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

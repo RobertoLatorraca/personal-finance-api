@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.services.account;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -32,7 +31,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 	}
 
 	@Override
-	public Currency update(UUID id, Currency currency) {
+	public Currency update(String id, Currency currency) {
 		if (currencyPersistence.findById(id).isEmpty()) throw new NotFoundException();
 		checkForDuplicateCurrencies(currency, true);
 		currency.setId(id);
@@ -45,12 +44,12 @@ public class CurrencyServiceImpl implements CurrencyService {
 	}
 
 	@Override
-	public Optional<Currency> findById(UUID id) {
+	public Optional<Currency> findById(String id) {
 		return currencyPersistence.findById(id);
 	}
 
 	@Override
-	public void deleteById(UUID id) {
+	public void deleteById(String id) {
 		currencyPersistence.deleteById(id);
 	}
 	

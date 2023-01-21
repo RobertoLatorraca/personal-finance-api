@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.ports.out.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.domain.Sort;
 
@@ -14,9 +13,9 @@ public interface PayeePersistence {
 	
 	List<Payee> findAll(Sort sort);
 	
-	Optional<Payee> findById(UUID id);
+	Optional<Payee> findById(String id);
 	
-	void deleteById(UUID id);
+	void deleteById(String id);
 	
 	Optional<Payee> findByName(String name);
 	

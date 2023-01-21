@@ -47,7 +47,7 @@ public class CurrencyController {
 	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CurrencyDto currencyDto) {
 		Currency currency = new ModelMapper().map(currencyDto, Currency.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
-				new ModelMapper().map(currencyService.update(id, currency), CurrencyDto.class));
+				new ModelMapper().map(currencyService.update(id.toString(), currency), CurrencyDto.class));
 	}
 	
 	@GetMapping()
@@ -60,14 +60,14 @@ public class CurrencyController {
 	
 	@GetMapping(ID)
 	public ResponseEntity<?> findById(@PathVariable UUID id) {
-		Optional<Currency> result = currencyService.findById(id);
+		Optional<Currency> result = currencyService.findById(id.toString());
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), CurrencyDto.class));
 	}
 	
 	@DeleteMapping(ID)
 	public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-		currencyService.deleteById(id);
+		currencyService.deleteById(id.toString());
 		return ResponseEntity.noContent().build();
 	}
 

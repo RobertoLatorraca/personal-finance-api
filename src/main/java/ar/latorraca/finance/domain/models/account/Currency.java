@@ -1,7 +1,6 @@
 package ar.latorraca.finance.domain.models.account;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Getter
 public class Currency {
 
-	private UUID id;
+	private String id;
 	private String cca3;
 	private String country;
 	private String currency;

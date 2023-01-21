@@ -47,7 +47,7 @@ public class BankController {
 	public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody BankDto bankDto) {
 		Bank bank = new ModelMapper().map(bankDto, Bank.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
-				new ModelMapper().map(bankService.update(id, bank), BankDto.class));
+				new ModelMapper().map(bankService.update(id.toString(), bank), BankDto.class));
 	}
 	
 	@GetMapping()
@@ -60,14 +60,14 @@ public class BankController {
 	
 	@GetMapping(ID)
 	public ResponseEntity<?> findById(@PathVariable UUID id) {
-		Optional<Bank> result = bankService.findById(id);
+		Optional<Bank> result = bankService.findById(id.toString());
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), BankDto.class));
 	}
 	
 	@DeleteMapping(ID)
 	public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-		bankService.deleteById(id);
+		bankService.deleteById(id.toString());
 		return ResponseEntity.noContent().build();
 	}
 	
