@@ -1,30 +1,29 @@
 package ar.latorraca.finance.adapters.secondary.jpa.entities;
 
 import java.util.Date;
-import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
+
+import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
+import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.PayeeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-import ar.latorraca.finance.adapters.secondary.jpa.entities.account.AccountEntity;
-import ar.latorraca.finance.adapters.secondary.jpa.entities.transaction.PayeeEntity;
 
 @Entity
 @Table(name = "transactions")
 public class TransactionEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@org.hibernate.annotations.Type(type = "uuid-char")
+	@GeneratedValue
+	@UuidGenerator
 	@Column(name = "id", columnDefinition = "varchar(36)")
-	private UUID id;
+	private String id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_payee", nullable = false)
@@ -49,11 +48,11 @@ public class TransactionEntity {
 	@Column(name = "modified_at")
 	private Date modifiedAt;
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

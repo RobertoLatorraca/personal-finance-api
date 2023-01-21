@@ -3,7 +3,6 @@ package ar.latorraca.finance.adapters.secondary.jpa.persistences.account;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class BankPersistenceImpl implements BankPersistence {
 	}
 
 	@Override
-	public Optional<Bank> findById(UUID id) {
+	public Optional<Bank> findById(String id) {
 		Optional<BankEntity> bankEntity = bankRepository.findById(id);
 		if (bankEntity.isPresent()) {
 			return Optional.of(new ModelMapper().map(bankEntity.get(), Bank.class));
@@ -47,7 +46,7 @@ public class BankPersistenceImpl implements BankPersistence {
 	}
 
 	@Override
-	public void deleteById(UUID id) {
+	public void deleteById(String id) {
 		bankRepository.deleteById(id);		
 	}
 
