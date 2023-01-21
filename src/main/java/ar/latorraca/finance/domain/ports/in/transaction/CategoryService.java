@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.ports.in.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import ar.latorraca.finance.domain.models.transaction.Category;
 import ar.latorraca.finance.domain.models.transaction.CategoryGroup;
@@ -13,9 +12,9 @@ public interface CategoryService {
 
 	List<Category> findAll();
 
-	Optional<Category> findById(UUID id);
+	Optional<Category> findById(String id);
 
-	Category update(UUID id, Category category);
+	Category update(String id, Category category);
 
 	List<CategoryGroup> findCategoryGroups();
 

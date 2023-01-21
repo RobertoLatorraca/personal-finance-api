@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class CategoryController {
 	public ResponseEntity<CategoryDto> update(@PathVariable UUID id, @RequestBody CategoryDto categoryDto) {
 		Category category = new ModelMapper().map(categoryDto, Category.class);
 		return ResponseEntity.status(HttpStatus.OK).body(
-				new ModelMapper().map(categoryService.update(id, category), CategoryDto.class));
+				new ModelMapper().map(categoryService.update(id.toString(), category), CategoryDto.class));
 	}
 
 	@GetMapping()
@@ -59,7 +60,7 @@ public class CategoryController {
 
 	@GetMapping(ID)
 	public ResponseEntity<CategoryDto> findById(@PathVariable UUID id) {
-		Optional<Category> result = categoryService.findById(id);
+		Optional<Category> result = categoryService.findById(id.toString());
 		if (result.isEmpty()) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(new ModelMapper().map(result.get(), CategoryDto.class));
 	}

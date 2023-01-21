@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.ports.out.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.domain.Sort;
 
@@ -16,6 +15,6 @@ public interface CategoryPersistence {
 
 	List<Category> findAll(Sort sort);
 
-	Optional<Category> findById(UUID id);
+	Optional<Category> findById(String id);
 
 }

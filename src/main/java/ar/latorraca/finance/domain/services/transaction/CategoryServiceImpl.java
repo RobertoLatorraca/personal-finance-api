@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.services.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -40,12 +39,12 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Optional<Category> findById(UUID id) {
+	public Optional<Category> findById(String id) {
 		return categoryPersistence.findById(id);
 	}
 
 	@Override
-	public Category update(UUID id, Category category) {
+	public Category update(String id, Category category) {
 		if (categoryPersistence.findById(id).isEmpty()) throw new NotFoundException();
 		Optional<Category> categoryTestForDuplicates = categoryPersistence.findByName(category.getName());
 		if (categoryTestForDuplicates.isPresent() && categoryTestForDuplicates.get().getId().compareTo(category.getId()) != TRUE)
