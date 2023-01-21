@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.ports.in.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import ar.latorraca.finance.domain.models.transaction.Tag;
 
@@ -12,8 +11,8 @@ public interface TagService {
 
 	List<Tag> findAll();
 
-	Optional<Tag> findById(UUID id);
+	Optional<Tag> findById(String id);
 
-	Tag update(UUID id, Tag tag);
+	Tag update(String id, Tag tag);
 
 }

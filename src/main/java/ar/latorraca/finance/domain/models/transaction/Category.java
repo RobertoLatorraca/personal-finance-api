@@ -1,7 +1,5 @@
 package ar.latorraca.finance.domain.models.transaction;
 
-import java.util.UUID;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class Category {
 
-	private UUID id;
+	private String id;
 	private String name;
 	private Category parentCategory;
 	private String description;

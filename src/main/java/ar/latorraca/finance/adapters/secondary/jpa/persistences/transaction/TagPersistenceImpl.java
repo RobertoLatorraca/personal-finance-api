@@ -2,7 +2,6 @@ package ar.latorraca.finance.adapters.secondary.jpa.persistences.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +35,13 @@ public class TagPersistenceImpl implements TagPersistence {
 	}
 
 	@Override
-	public Optional<Tag> findById(UUID id) {
+	public Optional<Tag> findById(String id) {
 		return tagRepository.findById(id)
 				.map(e -> ModelMapperFacade.map(e, Tag.class));
 	}
 
 	@Override
-	public void deleteById(UUID id) {
+	public void deleteById(String id) {
 		// TODO Auto-generated method stub
 
 	}

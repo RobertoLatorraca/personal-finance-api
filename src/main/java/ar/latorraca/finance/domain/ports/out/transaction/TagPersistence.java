@@ -2,7 +2,6 @@ package ar.latorraca.finance.domain.ports.out.transaction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.domain.Sort;
 
@@ -16,8 +15,8 @@ public interface TagPersistence {
 
 	List<Tag> findAll(Sort sort);
 
-	Optional<Tag> findById(UUID id);
+	Optional<Tag> findById(String id);
 
-	void deleteById(UUID id);
+	void deleteById(String id);
 
 }

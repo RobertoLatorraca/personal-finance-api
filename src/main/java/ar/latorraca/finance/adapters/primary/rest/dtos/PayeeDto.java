@@ -1,7 +1,5 @@
 package ar.latorraca.finance.adapters.primary.rest.dtos;
 
-import java.util.UUID;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class PayeeDto {
 	
-	private UUID id;
+	private String id;
 	private String name;
 	
 }

@@ -3,7 +3,6 @@ package ar.latorraca.finance.adapters.secondary.jpa.persistences.transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class PayeePersistenceImpl implements PayeePersistence {
 	}
 
 	@Override
-	public Optional<Payee> findById(UUID id) {
+	public Optional<Payee> findById(String id) {
 		Optional<PayeeEntity> payeeEntity = payeeRepository.findById(id);
 		if (payeeEntity.isPresent()) {
 			return Optional.of(new ModelMapper().map(payeeEntity.get(), Payee.class));
@@ -47,7 +46,7 @@ public class PayeePersistenceImpl implements PayeePersistence {
 	}
 
 	@Override
-	public void deleteById(UUID id) {
+	public void deleteById(String id) {
 		payeeRepository.deleteById(id);
 	}
 
