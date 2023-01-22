@@ -28,9 +28,12 @@ public class CreateAccountDto {
 	private String accountNumber;
 	private String cbu;
 	private String alias;
-	
+
 	private CreditCardBrand creditCardBrand;
 	private String creditCardNumber;
 	private Date expiration;
+
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private Boolean enabled = true;
 
 }

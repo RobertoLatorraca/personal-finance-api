@@ -42,6 +42,14 @@ public interface ModelMapperFacade {
 		return destination;
 	}
 
+	public static <S, D> List<D> mapList(List<S> source, Class<D> destinationType) {
+		ModelMapper modelMapper = new ModelMapper();
+		return source
+				.stream()
+				.map(e -> modelMapper.map(e, destinationType))
+				.collect(Collectors.toList());
+	}
+
 	public static <S, D> Set<D> mapSet(Set<S> source, Class<D> destinationType) {
 		ModelMapper modelMapper = new ModelMapper();
 		return source

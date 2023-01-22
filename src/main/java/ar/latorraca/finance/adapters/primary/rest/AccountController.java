@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.latorraca.finance.adapters.primary.rest.dtos.AccountTypeDto;
 import ar.latorraca.finance.adapters.primary.rest.dtos.CreateAccountDto;
 import ar.latorraca.finance.domain.models.account.Account;
 import ar.latorraca.finance.domain.ports.in.account.AccountService;
@@ -19,6 +20,7 @@ import ar.latorraca.finance.domain.services.mappers.ModelMapperFacade;
 public class AccountController {
 
 	protected static final String ACCOUNTS = "/accounts";
+	private static final String TYPES = "/types";
 
 	@Autowired
 	private AccountService accountService;
@@ -36,6 +38,12 @@ public class AccountController {
 		return ResponseEntity.ok().body(
 				accountService.findAll().stream()
 				.map(a -> ModelMapperFacade.mapAccountToDto(a)));
+	}
+
+	@GetMapping(TYPES)
+	public ResponseEntity<?> getAccountTypes() {
+		return ResponseEntity.ok(ModelMapperFacade.mapList(
+				accountService.getAccountTypes(), AccountTypeDto.class));
 	}
 
 }

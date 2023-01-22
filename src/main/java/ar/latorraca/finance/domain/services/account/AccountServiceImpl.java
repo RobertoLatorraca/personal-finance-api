@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.latorraca.finance.domain.models.account.Account;
+import ar.latorraca.finance.domain.models.account.AccountType;
 import ar.latorraca.finance.domain.ports.in.account.AccountService;
 import ar.latorraca.finance.domain.ports.in.account.BalanceService;
 import ar.latorraca.finance.domain.ports.out.account.AccountPersistence;
@@ -32,6 +33,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public <T extends Account> List<T> findAll() {
 		return accountPersistence.findAll();
+	}
+
+	@Override
+	public List<AccountType> getAccountTypes() {
+		return List.of(AccountType.values());
 	}
 
 }
